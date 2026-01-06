@@ -1,21 +1,21 @@
+import { Quote } from '@/types/index.js';
 import { PrismaClient } from '@prisma/client';
-import {Quote} from "@/types/index.js";
 
 const prisma = new PrismaClient();
 
 export async function getQuotes(userId: string): Promise<Quote[]> {
-  return await prisma.quotes.findMany({
+  return prisma.quotes.findMany({
     where: { userId },
     orderBy: { createdAt: 'desc' },
   });
 }
 
 export async function createQuote(
-    userId: string,
-    quote: string,
-    author: string | null = null
+  userId: string,
+  quote: string,
+  author: string | null = null,
 ): Promise<Quote> {
-  return await prisma.quotes.create({
+  return prisma.quotes.create({
     data: {
       userId,
       quote,
